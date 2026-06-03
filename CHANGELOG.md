@@ -58,8 +58,11 @@ First complete release of the framework.
 - Project scaffolder (`bin/create.js`, the `create-rfbe` initializer) so a new
   app can be created with `npm create rfbe@latest my-app` or
   `npx degit refkinscallv/rfbe my-app`. Supports `--no-install` / `--no-git`.
-- Packaging metadata for publishing and consumption: `bin`, `files`,
-  `engines.node >= 18`, and a `.gitignore`.
+- Packaging metadata for publishing and consumption: package published as
+  `create-rfbe`, plus `bin`, `files`, `engines.node >= 18`, `.gitignore` and
+  `.gitattributes`.
+- GitHub Actions: `ci.yml` (lint + boot smoke on Node 18/20/22 for pushes and
+  PRs) and `publish.yml` (publishes to npm on a GitHub Release).
 - Database CLI (`scripts/db.js`) with npm scripts: `db:migrate`, `db:rollback`,
   `db:reset`, `db:fresh`, `db:seed`, `db:sync` and `db:make:model`.
 - `scripts/setup.js` generates `APP_KEY`, `JWT_SECRET` and `JWT_REFRESH_SECRET`.

@@ -76,8 +76,13 @@ function rewritePackageJson(targetDir, appName) {
 	pkg.name = appName;
 	pkg.version = '0.1.0';
 	pkg.private = true;
+	pkg.description = '';
+	pkg.keywords = [];
 	delete pkg.bin;
 	delete pkg.files;
+	delete pkg.engines;
+	delete pkg.author;
+	delete pkg.license;
 	delete pkg.homepage;
 	delete pkg.bugs;
 	delete pkg.repository;

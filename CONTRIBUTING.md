@@ -64,6 +64,31 @@ docs(api): document Common.Storage
 - Make sure the app still boots (`npm run dev`) and the example routes respond.
 - Update `API.md`, `README.md` and `CHANGELOG.md` when behavior changes.
 
+## Continuous integration
+
+Every push and pull request to `main` / `develop` runs the
+[CI workflow](.github/workflows/ci.yml): it installs dependencies, checks
+formatting with Prettier, and boots the app (database disabled) to confirm it
+serves HTTP. Run `npx prettier --check .` locally before pushing.
+
+## Releasing (maintainers)
+
+Publishing is automated by the [Publish workflow](.github/workflows/publish.yml),
+which runs when a **GitHub Release** is published and pushes the package to npm
+as `create-rfbe` — the initializer behind `npm create rfbe@latest`.
+
+One-time setup: add an npm automation token as the `NPM_TOKEN` repository secret
+(Settings → Secrets and variables → Actions).
+
+To cut a release:
+
+1. Update `CHANGELOG.md` and bump the version in `package.json`.
+2. Commit and push to `main`.
+3. Create a GitHub Release with a tag `vX.Y.Z` (e.g. `v1.0.1`). The workflow
+   syncs the package version to the tag and publishes to npm.
+
+After it lands, `npm create rfbe@latest my-app` installs the new version.
+
 ## Reporting bugs
 
 Open an issue with a minimal reproduction: what you did, what you expected, and

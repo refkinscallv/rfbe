@@ -1,12 +1,16 @@
 {
-    "name": "rfbe",
+    "name": "create-rfbe",
     "version": "1.0.0",
-    "description": "A Quick Action Backend Framework",
+    "description": "Scaffolder for RFBE — a quick-action backend framework for Node.js. Run: npm create rfbe@latest my-app",
     "keywords": [
         "node",
         "rfbe",
         "backend",
-        "framework"
+        "framework",
+        "create-rfbe",
+        "scaffold",
+        "boilerplate",
+        "starter"
     ],
     "homepage": "https://github.com/refkinscallv/rfbe#readme",
     "bugs": {
@@ -35,6 +39,8 @@
         ".env.example",
         ".prettierrc",
         ".prettierignore",
+        "jsconfig.json",
+        "nodemon.json",
         "API.md",
         "CHANGELOG.md",
         "CODE_OF_CONDUCT.md",

@@ -1,5 +1,9 @@
 # RFBE — Refkinscallv Backend Framework
 
+[![CI](https://github.com/refkinscallv/rfbe/actions/workflows/ci.yml/badge.svg)](https://github.com/refkinscallv/rfbe/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/create-rfbe.svg)](https://www.npmjs.com/package/create-rfbe)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A quick-action backend framework for Node.js. RFBE wires the pieces you reach
 for on almost every project — HTTP, database, auth, scheduling, queues and
 realtime — into a small set of cores with one central configuration file. You
@@ -100,6 +104,9 @@ npx degit refkinscallv/rfbe my-app && cd my-app && npm install && npm run setup
 The scaffolder copies the template, installs dependencies, writes `.env`, and
 generates `APP_KEY`, `JWT_SECRET` and `JWT_REFRESH_SECRET`. Flags: `--no-install`
 and `--no-git`.
+
+> The npm initializer is published as the **`create-rfbe`** package, which is
+> what `npm create rfbe@latest` resolves to.
 
 ### Clone this repository
 
