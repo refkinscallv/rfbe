@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "@app/*": ["./src/*"],
+            "@core/*": ["./core/*"]
+        },
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "ignoreDeprecations": "6.0",
+        "target": "ES2024",
+        "lib": ["ES2024"]
+    },
+    "include": ["src/**/*", "core/**/*"],
+    "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,87 @@
+{
+    "name": "rfbe",
+    "version": "1.0.0",
+    "description": "A Quick Action Backend Framework",
+    "keywords": [
+        "node",
+        "rfbe",
+        "backend",
+        "framework"
+    ],
+    "homepage": "https://github.com/refkinscallv/rfbe#readme",
+    "bugs": {
+        "url": "https://github.com/refkinscallv/rfbe/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/refkinscallv/rfbe.git"
+    },
+    "license": "MIT",
+    "author": "Refkinscallv (refkinscallv@gmail.com)",
+    "type": "commonjs",
+    "main": "bootstrap/index.js",
+    "bin": {
+        "create-rfbe": "bin/create.js"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "files": [
+        "bin/",
+        "bootstrap/",
+        "core/",
+        "scripts/",
+        "src/",
+        ".env.example",
+        ".prettierrc",
+        ".prettierignore",
+        "API.md",
+        "CHANGELOG.md",
+        "CODE_OF_CONDUCT.md",
+        "CONTRIBUTING.md"
+    ],
+    "_moduleAliases": {
+        "@app": "src",
+        "@core": "core"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "setup": "node scripts/setup.js",
+        "start": "node .",
+        "dev": "nodemon .",
+        "format": "prettier --write .",
+        "db:migrate": "node scripts/db.js migrate",
+        "db:rollback": "node scripts/db.js rollback",
+        "db:reset": "node scripts/db.js reset",
+        "db:fresh": "node scripts/db.js fresh",
+        "db:seed": "node scripts/db.js seed",
+        "db:sync": "node scripts/db.js sync",
+        "db:make:model": "node scripts/db.js make:model"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.14",
+        "prettier": "^3.8.3"
+    },
+    "dependencies": {
+        "@refkinscallv/express-routing": "^3.0.0",
+        "axios": "^1.17.0",
+        "bcrypt": "^6.0.0",
+        "compression": "^1.8.1",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "express-rate-limit": "^8.5.2",
+        "helmet": "^8.2.0",
+        "jsonwebtoken": "^9.0.3",
+        "module-alias": "^2.3.4",
+        "multer": "^2.1.1",
+        "mysql2": "^3.22.4",
+        "node-cron": "^4.2.1",
+        "nodemailer": "^8.0.10",
+        "sequelize": "^6.37.8",
+        "socket.io": "^4.8.3",
+        "winston": "^3.19.0",
+        "winston-daily-rotate-file": "^5.0.0",
+        "zod": "^4.4.3"
+    }
+}

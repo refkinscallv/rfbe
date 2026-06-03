@@ -1,0 +1,6 @@
+node_modules
+.prettierrc
+package.json
+package-lock.json
+jsconfig.json
+nodemon.json
