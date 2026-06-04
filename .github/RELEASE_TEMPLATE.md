@@ -7,12 +7,12 @@ Database-backed queue persistence and cron execution history.
 Jobs are now written to the database before they are processed. Each job
 tracks its full lifecycle:
 
-| Status | Meaning |
-|---|---|
-| `pending` | Waiting to be picked up |
-| `processing` | Currently running |
-| `completed` | Finished successfully |
-| `failed` | Exhausted all retries — kept as a dead-letter record |
+| Status       | Meaning                                              |
+| ------------ | ---------------------------------------------------- |
+| `pending`    | Waiting to be picked up                              |
+| `processing` | Currently running                                    |
+| `completed`  | Finished successfully                                |
+| `failed`     | Exhausted all retries — kept as a dead-letter record |
 
 On startup, any `pending` or interrupted `processing` jobs are automatically
 re-enqueued, so no work is lost across restarts or crashes.
@@ -21,12 +21,12 @@ re-enqueued, so no work is lost across restarts or crashes.
 
 Every cron execution is now recorded:
 
-| Column | Content |
-|---|---|
-| `started_at` / `finished_at` | Wall-clock timestamps |
-| `status` | `running` → `completed` or `failed` |
-| `duration_ms` | Elapsed time in milliseconds |
-| `error` | Error message on failure |
+| Column                       | Content                             |
+| ---------------------------- | ----------------------------------- |
+| `started_at` / `finished_at` | Wall-clock timestamps               |
+| `status`                     | `running` → `completed` or `failed` |
+| `duration_ms`                | Elapsed time in milliseconds        |
+| `error`                      | Error message on failure            |
 
 ### New environment variables
 

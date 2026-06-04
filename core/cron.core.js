@@ -103,23 +103,13 @@ class Cron {
 			await job.handler();
 			const finishedAt = new Date();
 			if (Cron._db) {
-				await Cron._db
-					.query(
-						`UPDATE \`${TABLE}\` SET status = 'completed', finished_at = :finishedAt, duration_ms = :duration WHERE id = :id`,
-						{ replacements: { finishedAt, duration: finishedAt - startedAt, id: runId } }
-					)
-					.catch(() => {});
+				await Cron._db.query(`UPDATE \`${TABLE}\` SET status = 'completed', finished_at = :finishedAt, duration_ms = :duration WHERE id = :id`, { replacements: { finishedAt, duration: finishedAt - startedAt, id: runId } }).catch(() => {});
 			}
 		} catch (error) {
 			logger.error(`Cron job "${job.name}" failed: ${error.message}`);
 			const finishedAt = new Date();
 			if (Cron._db) {
-				await Cron._db
-					.query(
-						`UPDATE \`${TABLE}\` SET status = 'failed', finished_at = :finishedAt, duration_ms = :duration, error = :error WHERE id = :id`,
-						{ replacements: { finishedAt, duration: finishedAt - startedAt, error: error.message, id: runId } }
-					)
-					.catch(() => {});
+				await Cron._db.query(`UPDATE \`${TABLE}\` SET status = 'failed', finished_at = :finishedAt, duration_ms = :duration, error = :error WHERE id = :id`, { replacements: { finishedAt, duration: finishedAt - startedAt, error: error.message, id: runId } }).catch(() => {});
 			}
 		}
 	}

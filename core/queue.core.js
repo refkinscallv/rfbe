@@ -202,38 +202,26 @@ class Queue {
 					availableAt: new Date(Date.now() + delay),
 					now,
 				},
-			}
+			},
 		);
 	}
 
 	static async _markProcessing(id, attempts) {
-		await Queue._db.query(
-			`UPDATE \`${TABLE}\` SET status = 'processing', attempts = :attempts, updated_at = :now WHERE id = :id`,
-			{ replacements: { attempts, now: new Date(), id } }
-		);
+		await Queue._db.query(`UPDATE \`${TABLE}\` SET status = 'processing', attempts = :attempts, updated_at = :now WHERE id = :id`, { replacements: { attempts, now: new Date(), id } });
 	}
 
 	static async _markCompleted(id) {
 		const now = new Date();
-		await Queue._db.query(
-			`UPDATE \`${TABLE}\` SET status = 'completed', processed_at = :now, updated_at = :now WHERE id = :id`,
-			{ replacements: { now, id } }
-		);
+		await Queue._db.query(`UPDATE \`${TABLE}\` SET status = 'completed', processed_at = :now, updated_at = :now WHERE id = :id`, { replacements: { now, id } });
 	}
 
 	static async _markFailed(id, errorMsg) {
 		const now = new Date();
-		await Queue._db.query(
-			`UPDATE \`${TABLE}\` SET status = 'failed', error = :error, processed_at = :now, updated_at = :now WHERE id = :id`,
-			{ replacements: { error: errorMsg, now, id } }
-		);
+		await Queue._db.query(`UPDATE \`${TABLE}\` SET status = 'failed', error = :error, processed_at = :now, updated_at = :now WHERE id = :id`, { replacements: { error: errorMsg, now, id } });
 	}
 
 	static async _markPending(id, attempts) {
-		await Queue._db.query(
-			`UPDATE \`${TABLE}\` SET status = 'pending', attempts = :attempts, updated_at = :now WHERE id = :id`,
-			{ replacements: { attempts, now: new Date(), id } }
-		);
+		await Queue._db.query(`UPDATE \`${TABLE}\` SET status = 'pending', attempts = :attempts, updated_at = :now WHERE id = :id`, { replacements: { attempts, now: new Date(), id } });
 	}
 
 	// On startup, re-enqueue any jobs that were pending or mid-flight when the
@@ -243,7 +231,7 @@ class Queue {
 			`SELECT id, \`queue\`, payload, attempts, max_retries AS maxRetries
 			 FROM \`${TABLE}\`
 			 WHERE status IN ('pending', 'processing') AND available_at <= :now`,
-			{ replacements: { now: new Date() } }
+			{ replacements: { now: new Date() } },
 		);
 
 		let loaded = 0;
