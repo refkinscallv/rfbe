@@ -4,6 +4,28 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-06-04
+
+### Added
+
+- **Queue persistence** — when `DB_ENABLED=true` and `QUEUE_PERSIST=true`, jobs
+  are written to a `queue_jobs` table before processing. Status transitions
+  (`pending` → `processing` → `completed` / `failed`) are tracked per job.
+  On startup, any `pending` or interrupted `processing` jobs are automatically
+  re-enqueued so no work is lost across restarts or crashes. Permanently failed
+  jobs remain in the table as a dead-letter record.
+- **Cron execution history** — when `DB_ENABLED=true` and `CRON_HISTORY=true`,
+  each cron run is recorded in a `cron_runs` table with `started_at`,
+  `finished_at`, `status` (`running` / `completed` / `failed`), `duration_ms`,
+  and any error message.
+- Both tables (`queue_jobs`, `cron_runs`) are created automatically by the
+  framework on first boot — no migration required.
+- Two new environment variables: `QUEUE_PERSIST` (default `true`) and
+  `CRON_HISTORY` (default `true`). Set either to `false` to opt out of DB
+  tracking while keeping the rest of the database subsystem enabled.
+
+---
+
 ## [1.0.0] - 2026-06-04
 
 First complete release of the framework.

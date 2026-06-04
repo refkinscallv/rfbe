@@ -100,6 +100,7 @@ module.exports = {
 	cron: {
 		enabled: Common.getEnvBool('CRON_ENABLED', true),
 		timezone: Common.getEnv('CRON_TIMEZONE', Common.getEnv('APP_TIMEZONE', 'UTC')),
+		history: Common.getEnvBool('CRON_HISTORY', true),
 	},
 
 	queue: {
@@ -107,6 +108,7 @@ module.exports = {
 		concurrency: Common.getEnvInt('QUEUE_CONCURRENCY', 5),
 		maxRetries: Common.getEnvInt('QUEUE_MAX_RETRIES', 3),
 		retryDelay: Common.getEnvInt('QUEUE_RETRY_DELAY', 1000),
+		persist: Common.getEnvBool('QUEUE_PERSIST', true),
 	},
 
 	socket: {

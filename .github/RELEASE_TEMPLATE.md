@@ -1,4 +1,47 @@
-First complete release of **RFBE** — a quick-action backend framework for Node.js.
+Database-backed queue persistence and cron execution history.
+
+## What's new in 1.0.2
+
+### Queue persistence (`queue_jobs`)
+
+Jobs are now written to the database before they are processed. Each job
+tracks its full lifecycle:
+
+| Status | Meaning |
+|---|---|
+| `pending` | Waiting to be picked up |
+| `processing` | Currently running |
+| `completed` | Finished successfully |
+| `failed` | Exhausted all retries — kept as a dead-letter record |
+
+On startup, any `pending` or interrupted `processing` jobs are automatically
+re-enqueued, so no work is lost across restarts or crashes.
+
+### Cron execution history (`cron_runs`)
+
+Every cron execution is now recorded:
+
+| Column | Content |
+|---|---|
+| `started_at` / `finished_at` | Wall-clock timestamps |
+| `status` | `running` → `completed` or `failed` |
+| `duration_ms` | Elapsed time in milliseconds |
+| `error` | Error message on failure |
+
+### New environment variables
+
+```env
+QUEUE_PERSIST=true   # persist jobs to queue_jobs table
+CRON_HISTORY=true    # record each cron run in cron_runs table
+```
+
+Both default to `true` when `DB_ENABLED=true`. Set to `false` to opt out
+while keeping the rest of the database subsystem enabled.
+
+Both tables are created automatically by the framework on first boot — no
+migration step required.
+
+---
 
 ## Quick start
 
@@ -10,18 +53,6 @@ Or straight from GitHub:
 
     npx degit refkinscallv/rfbe my-app && cd my-app && npm install && npm run setup
 
-## Highlights
-
-- **HTTP backbone** — Express 5 + Laravel-style routing (`@refkinscallv/express-routing`), helmet, CORS, compression, rate limiting, multer uploads.
-- **Standard response envelope** — every reply is `{ status, code, message, data, meta, errors, additional }` via `res.success` / `res.error` / `res.respond`.
-- **Database** — Sequelize models, migrations, seeders, `sync`/`reset`/`fresh`, and model scaffolding (`DB_AUTO_MODEL`, `db:make:model`).
-- **Auth & validation** — JWT access/refresh tokens and Zod-powered request validation.
-- **Background work** — cron jobs, an in-process queue (concurrency + retry/backoff), and Socket.IO realtime.
-- **Mailer** — nodemailer with a no-op dev mode.
-- **Utilities** — `Common.Str/Arr/Obj/Url/Path/Hash/Crypt/Collection/Date/Cache/Storage`.
-- **One config surface** — everything driven by `.env` → `src/config.js`; toggle subsystems with `DB_ENABLED`, `CRON_ENABLED`, `QUEUE_ENABLED`, `SOCKET_ENABLED`, `MAIL_ENABLED`.
-- **Lifecycle** — deterministic boot order with graceful shutdown on `SIGINT`/`SIGTERM`.
-
 ## Requirements
 
 - Node.js >= 18
@@ -29,4 +60,4 @@ Or straight from GitHub:
 
 ## Docs
 
-[README](README.md) · [API reference](API.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+[README](README.md) · [API reference](API.md) · [Changelog](CHANGELOG.md)
